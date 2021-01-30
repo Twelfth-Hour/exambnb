@@ -3,10 +3,20 @@
   "key": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyXh+v+XcjT2IhCC8rRKas5QjpAFfmpi0vtI0FaJ2r/1MhGjbBivXAnZa3Ea/TDHLgDkTwyPL4GookmYavcP3Y3L0+nLilTCfJc1puC3YuNHD2boHg6JgjHPM3BdQpPJlzxXKX93D91szVI5JrEoZbDxgPKPgUilFHQb3S6lVGSoGK2Ph7ztemKE4KZzRV2rqhmx/zArbfguwC3vzvreyXht7M3OBobdZ7l4CEinmm1Bhm2cTzcNaP2GWx1vHmSgFSd9dyp+Ch4T11x2qAwxsudK9QR7PsfYH90vKqMc9PEkQ841ltK4Mgm8Nrnlb4YCW4FNvAYC4JRDpfLqI4otsrQIDAQAB-----END PUBLIC KEY-----",
   "description": "Chrome extension for real time proctoring.",
   "version": "1.0",
-  "permissions": ["storage", "activeTab", "identity", "identity.email"],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "identity",
+    "identity.email",
+    "tabs",
+    "downloads"
+  ],
   "oauth2": {
     "client_id": "440955800362-gfs2l9dtm9ucho8sjq5fas7s80ms7l2o.apps.googleusercontent.com",
-    "scopes":["https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
   },
   "background": {
     "scripts": ["./src/background.js"],

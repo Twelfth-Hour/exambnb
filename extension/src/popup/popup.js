@@ -75,6 +75,7 @@ function setCode(code) {
 
 function setUser(user) {
   localStorage.setItem("user", JSON.stringify(user));
+  localStorage.setItem("activities", JSON.stringify([]));
   displayUserStuff();
 }
 
@@ -87,6 +88,8 @@ function removeUser() {
   localStorage.removeItem("user");
   localStorage.removeItem("code");
   localStorage.removeItem("tracking");
+  // TODO: Remove this:
+  localStorage.removeItem("activities");
   document.querySelector("input#code").value = "";
   displayUserStuff();
 }
@@ -163,6 +166,5 @@ window.onload = () => {
   document.querySelector("input#tracking").addEventListener("change", () => {
     toggleTracking();
   });
-
   displayUserStuff();
 };
