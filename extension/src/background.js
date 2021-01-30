@@ -1,3 +1,1 @@
-chrome.browserAction.onClicked.addListener(function () {
-  chrome.tabs.create({ url: "src/index.html" });
-});
+chrome.runtime.onInstalled.addListener(function () {});
