@@ -11,11 +11,17 @@
         width: 150px;
         height: 50px;
         border: none;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         font-weight: 500;
         color: #ffffff;
         outline: 0;
         appearance: none;
+      }
+
+      body {
+        width: 500px;
+        height: 300px;
+        padding: 10px;
       }
 
       button:active {
@@ -24,7 +30,13 @@
     </style>
   </head>
   <body>
-    <button id="sign-up">Sign in with Google</button>
-    <div id="friendDiv"></div>
+    <div class="new-user-stuff">
+      <button id="sign-up">Sign in with Google</button>
+    </div>
+    <div class="old-user-stuff">
+      <p id="user-name"></p>
+      <p id="user-email"></p>
+      <button id="logout" hidden>Logout</button>
+    </div>
   </body>
 </html>
