@@ -19,7 +19,13 @@
     ]
   },
   "background": {
-    "scripts": ["./src/background.js"],
+    "scripts": [
+      "./lib/firebase.js",
+      "./lib/firestore.js",
+      "./src/background.js",
+      "./src/config/firebase.config.js",
+      "./src/relay.js"
+    ],
     "persistent": false
   },
   "browser_action": {
@@ -27,8 +33,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["./src/scripts/script.js"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "./src/scripts/script.js"
+      ]
     }
   ],
   "manifest_version": 2
