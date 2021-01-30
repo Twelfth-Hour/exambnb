@@ -68,7 +68,7 @@ chrome.runtime.onInstalled.addListener(function () {
             const data = doc.data();
             console.log("Document data:", data);
             let activities = JSON.parse(data.activities);
-            activities.push(JSON.parse(localStorage.getItem("activities")));
+            Array.prototype.push.apply(activities, JSON.parse(localStorage.getItem("activities")));
             userRef
               .update({
                 activities: JSON.stringify(activities),
