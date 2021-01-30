@@ -7,6 +7,23 @@ function showNewUserStuff() {
     .forEach((e) => (e.style.display = "none"));
 }
 
+function showOldUserStuff(user) {
+  document
+    .querySelectorAll(".old-user-stuff")
+    .forEach((e) => (e.style.display = "block"));
+  document
+    .querySelectorAll(".new-user-stuff")
+    .forEach((e) => (e.style.display = "none"));
+  document.querySelector("#user-name").innerHTML = user.name;
+  document.querySelector("#user-email").innerHTML = user.email;
+
+  if (localStorage.getItem("code") == null) {
+    showCodeNotSet();
+  } else {
+    showCodeSet();
+  }
+}
+
 function showCodeNotSet() {
   document
     .querySelectorAll(".code-not-set")
@@ -25,23 +42,30 @@ function showCodeSet() {
     .querySelectorAll(".code-not-set")
     .forEach((e) => (e.style.display = "none"));
   document.querySelector("input#code").value = code;
+
+  if (localStorage.getItem("tracking") == null) {
+    stopTracking();
+  } else {
+    showTracking();
+  }
 }
 
-function showOldUserStuff(user) {
+function showTracking() {
   document
-    .querySelectorAll(".old-user-stuff")
+    .querySelectorAll(".tracking-enabled")
     .forEach((e) => (e.style.display = "block"));
-  document
-    .querySelectorAll(".new-user-stuff")
-    .forEach((e) => (e.style.display = "none"));
-  document.querySelector("#user-name").innerHTML = user.name;
-  document.querySelector("#user-email").innerHTML = user.email;
 
-  if (localStorage.getItem("code") == null) {
-    showCodeNotSet();
-  } else {
-    showCodeSet();
-  }
+  document.querySelector("#tracking").checked = true;
+  document.querySelector("#tracking-message").innerHTML = "Tracking Enabled";
+}
+
+function stopTracking() {
+  document
+    .querySelectorAll(".tracking-enabled")
+    .forEach((e) => (e.style.display = "none"));
+
+  document.querySelector("#tracking").checked = false;
+  document.querySelector("#tracking-message").innerHTML = "Tracking Disabled";
 }
 
 function setCode(code) {
@@ -61,6 +85,19 @@ function removeCode() {
 
 function removeUser() {
   localStorage.removeItem("user");
+  localStorage.removeItem("code");
+  localStorage.removeItem("tracking");
+  document.querySelector("input#code").value = "";
+  displayUserStuff();
+}
+
+function toggleTracking() {
+  const current = localStorage.getItem("tracking");
+  if (current == null) {
+    localStorage.setItem("tracking", "true");
+  } else {
+    localStorage.removeItem("tracking");
+  }
   displayUserStuff();
 }
 
@@ -69,7 +106,6 @@ function displayUserStuff() {
     showNewUserStuff();
   } else {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
     showOldUserStuff(user);
   }
 }
@@ -99,6 +135,7 @@ window.onload = () => {
         .then((response) => response.json())
         .then((result) => setUser(result))
         .catch((error) => {
+          localStorage.setItem("token", token);
           removeUser();
           console.log("error", error);
         });
@@ -111,7 +148,7 @@ window.onload = () => {
 
   document.querySelector("button#save").addEventListener("click", () => {
     const val = document.querySelector("input#code").value;
-    if (val !== '') {
+    if (val !== "") {
       setCode(val);
     } else {
       removeCode();
@@ -119,8 +156,12 @@ window.onload = () => {
   });
 
   document.querySelector("button#clear").addEventListener("click", () => {
-    document.querySelector("input#code").value = '';
+    document.querySelector("input#code").value = "";
     removeCode();
+  });
+
+  document.querySelector("input#tracking").addEventListener("change", () => {
+    toggleTracking();
   });
 
   displayUserStuff();
