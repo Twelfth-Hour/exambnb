@@ -7,20 +7,19 @@ function showNewUserStuff() {
     .forEach((e) => (e.style.display = "none"));
 }
 
-function showOldUserStuff() {
+function showOldUserStuff(user) {
   document
     .querySelectorAll(".old-user-stuff")
     .forEach((e) => (e.style.display = "block"));
   document
     .querySelectorAll(".new-user-stuff")
     .forEach((e) => (e.style.display = "none"));
+  document.querySelector("#user-name").innerHTML = user.name;
+  document.querySelector("#user-email").innerHTML = user.email;
 }
 
 function setUser(user) {
   localStorage.setItem("user", JSON.stringify(user));
-  console.log(user);
-  document.querySelector("#user-name").innerHTML = user.name;
-  document.querySelector("#user-email").innerHTML = user.email;
   displayUserStuff();
 }
 
@@ -33,7 +32,9 @@ function displayUserStuff() {
   if (localStorage.getItem("user") == null) {
     showNewUserStuff();
   } else {
-    showOldUserStuff();
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+    showOldUserStuff(user);
   }
 }
 
