@@ -2,7 +2,15 @@
   <head>
     <title>Exambnb</title>
     <script type="text/javascript" src="popup.js"></script>
+
+    <script src="../../lib/jquery.js"></script>
+    <script src="../../lib/Semantic-UI-CSS-master/semantic.min.js"></script>
+    <link
+      href="../../lib/Semantic-UI-CSS-master/semantic.min.css"
+      rel="stylesheet"
+    />
     <style>
+      /*    
       button {
         padding: 10px;
         background-color: #4c8bf5;
@@ -16,7 +24,7 @@
         color: #ffffff;
         outline: 0;
         appearance: none;
-      }
+      } */
 
       body {
         width: 500px;
@@ -24,29 +32,60 @@
         padding: 10px;
       }
 
-      button:active {
+      /* button:active {
         background-color: #133774;
-      }
+      } */
     </style>
   </head>
   <body>
     <div class="new-user-stuff">
-      <button id="sign-up">Sign in with Google</button>
+      <div class="ui column centered grid">
+        <div class="column">
+          <center>
+            <h2 class="ui header">
+              <div class="content">
+                Exambnb
+                <div class="sub header">Real Time Proctoring</div>
+              </div>
+            </h2>
+            <button id="sign-up" class="ui google plus button">
+              <i class="google plus icon"></i>Sign in with Google
+            </button>
+          </center>
+        </div>
+      </div>
     </div>
+
     <div class="old-user-stuff">
-      <p id="user-name"></p>
-      <p id="user-email"></p>
-      <input id="code" name="code" placeholder="Enter code" type="text" /><br />
-      <button id="save" class="code-not-set">Save</button><br />
-      <button id="clear" class="code-set">Clear</button><br />
+      <h2 class="ui header">
+        <div class="content">
+          <span id="user-name"></span>
+          <div id="user-email" class="sub header"></div>
+        </div>
+      </h2>
+      <!-- <p></p> -->
+      <!-- <p></p> -->
+      <div class="ui input">
+        <input
+          id="code"
+          name="code"
+          placeholder="Enter code"
+          type="text"
+        /><br /><br />
+      </div>
+      <br />
+      <button id="save" class="code-not-set ui primary button">Save</button
+      ><br />
+      <button id="clear" class="code-set negative ui button">Clear</button
+      ><br />
       <div class="code-set">
         <input type="checkbox" id="tracking" /><span
           id="tracking-message"
         ></span
-        ><br />
+        ><br /><br />
         <div class="tracking-enabled">Hellah!</div>
       </div>
-      <button id="logout" hidden>Logout</button>
+      <button id="logout" class="ui secondary button">Logout</button>
     </div>
   </body>
 </html>
