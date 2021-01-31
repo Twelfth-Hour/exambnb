@@ -11,6 +11,7 @@
     "tabs",
     "downloads"
   ],
+  "icons": { "16": "assets/exambnb-16.png", "48": "assets/exambnb-48.png", "128": "assets/exambnb-128.png" },
   "oauth2": {
     "client_id": "440955800362-gfs2l9dtm9ucho8sjq5fas7s80ms7l2o.apps.googleusercontent.com",
     "scopes": [
@@ -33,12 +34,8 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "./src/scripts/script.js"
-      ]
+      "matches": ["<all_urls>"],
+      "js": ["./src/scripts/script.js"]
     }
   ],
   "manifest_version": 2
