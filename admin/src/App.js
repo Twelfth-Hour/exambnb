@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Accordion, Button, Card, Container, Form, ListGroup, } from 'react-bootstrap'
+import { Accordion, Button, Card, Col, Container, Form, ListGroup, } from 'react-bootstrap'
 import firebase from 'firebase'
 
 const db = firebase.firestore()
@@ -34,22 +34,34 @@ class App extends Component {
   render () {
     return (
       <Container>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Exam Code:</Form.Label>
-          <Form.Control
-            onChange={(e) => this.setState({ code: e.target.value })}
-            value={this.state.code}
-            type="text"
-            placeholder="Enter College Code"
-          />
-          <Button variant="primary" onClick={this.track}>
-            Track
-          </Button>{' '}
-          <Button variant="secondary" onClick={() => console.log(this.state)}>
-            Upload Emails
-          </Button>{' '}
-        </Form.Group>
+        <h1>Exambnb</h1>
+        <Form>
 
+          <Form.Label>Exam Code:</Form.Label>
+
+          <Form.Row className="align-items-center">
+            <Col xs="auto">
+              <Form.Control
+                onChange={(e) => this.setState({ code: e.target.value })}
+                value={this.state.code}
+                type="text"
+                placeholder="Enter College Code"
+              />
+            </Col>
+            <Col xs="auto">
+              <Button variant="primary" onClick={this.track}>
+                Track
+              </Button>
+            </Col>
+            <Col xs="auto">
+              <Button variant="secondary" onClick={() => console.log(this.state)}>
+                Upload Emails
+              </Button>
+            </Col>
+          </Form.Row>
+        </Form>
+        <br/>
+        <br/>
         <p>
           <b>Online: {this.state.users.length}</b>
         </p>
@@ -69,12 +81,11 @@ class App extends Component {
                 </Card.Header>
                 <Accordion.Collapse eventKey={`${k}`}>
                   <div>
-                    <b>Visited</b>
-                    <br/>
                     <ListGroup>
                       {JSON.parse(d.activities).map((a, i) => {
                         return (
-                          <ListGroup.Item key={i}>{a.message}</ListGroup.Item>
+                          <ListGroup.Item key={i}>{a.message} {a.url && a.url !== '' &&
+                          <a href={a.url} target="_blank">Link</a>}</ListGroup.Item>
                         )
                       })}
                     </ListGroup>
@@ -84,6 +95,8 @@ class App extends Component {
             )
           })}
         </Accordion>
+        <br/>
+        <br/>
       </Container>
     )
   }
