@@ -9,6 +9,7 @@
       href="../../lib/Semantic-UI-CSS-master/semantic.min.css"
       rel="stylesheet"
     />
+    <link href="./popup.css" rel="stylesheet">
     <style>
       /*    
       button {
@@ -38,9 +39,8 @@
     </style>
   </head>
   <body>
-    <div class="new-user-stuff">
-      <div class="ui column centered grid">
-        <div class="column">
+      <div class="space new-user-stuff"></div>
+      <div class="new-user-stuff ui container centered">
           <center>
             <h2 class="ui header">
               <div class="content">
@@ -52,9 +52,7 @@
               <i class="google plus icon"></i>Sign in with Google
             </button>
           </center>
-        </div>
       </div>
-    </div>
 
     <div class="old-user-stuff">
       <h2 class="ui header">
@@ -65,27 +63,45 @@
       </h2>
       <!-- <p></p> -->
       <!-- <p></p> -->
-      <div class="ui input">
-        <input
-          id="code"
-          name="code"
-          placeholder="Enter code"
-          type="text"
-        /><br /><br />
+      <br/>
+      <div class="ui row grid">
+        <div class="ui input">
+          <input
+            id="code"
+            name="code"
+            placeholder="e.g. svnit"
+            type="text"
+          />
+        </div>
+        <button id="save" class="code-not-set ui primary basic button">Save</button
+        >
+        <button id="clear" class="code-set negative ui button">Clear</button
+          >
+      </div>
+      <div class="ui row grid">
+        <br/>
+        <h2 class="ui header">
+          <div class="content">
+            <span></span>
+            <div class="sub header">Enter your campus code</div>
+          </div>
+        </h2>
       </div>
       <br />
-      <button id="save" class="code-not-set ui primary button">Save</button
-      ><br />
-      <button id="clear" class="code-set negative ui button">Clear</button
-      ><br />
-      <div class="code-set">
-        <input type="checkbox" id="tracking" /><span
-          id="tracking-message"
-        ></span
-        ><br /><br />
-        <div class="tracking-enabled">Hellah!</div>
+      
+      <div class="ui toggle checkbox code-set">
+        <input type="checkbox" name="public" id="tracking">
+        <label id="tracking-message"></label>
       </div>
-      <button id="logout" class="ui secondary button">Logout</button>
+
+      <!-- <h4 class="ui header tracking-enabled code-set" id="status">
+        Status: No suspicious activity
+      </h4> -->
+      <br/>
+      <button id="logout" class="ui secondary button right labeled icon">
+        <i class="right arrow icon"></i>
+        Logout
+      </button>
     </div>
   </body>
 </html>

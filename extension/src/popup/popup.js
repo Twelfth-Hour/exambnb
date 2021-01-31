@@ -51,12 +51,25 @@ function showCodeSet() {
 }
 
 function showTracking() {
+  // temp method to show suspicious activity or not
+  // let flags = 5;
+  // if (localStorage.getItem("cached-activities") !== null) {
+  //   flags = JSON.parse(localStorage.getItem("cached-activities")).length;
+  // }
   document
     .querySelectorAll(".tracking-enabled")
     .forEach((e) => (e.style.display = "block"));
 
   document.querySelector("#tracking").checked = true;
   document.querySelector("#tracking-message").innerHTML = "Tracking Enabled";
+
+  // if (flags > 3) {
+  //   document.querySelector("#status").innerHTML = "Status: Suspicious Activity";
+  //   document.querySelector("#status").style.color = "red";
+  // } else {
+  //   document.querySelector("#status").innerHTML = "Status: No Suspicious Activity";
+  //   document.querySelector("#status").style.color = "green";
+  // }
 }
 
 function stopTracking() {
@@ -66,6 +79,7 @@ function stopTracking() {
 
   document.querySelector("#tracking").checked = false;
   document.querySelector("#tracking-message").innerHTML = "Tracking Disabled";
+  // document.querySelector("#status").innerHTML = "";
 }
 
 function setCode(code) {
