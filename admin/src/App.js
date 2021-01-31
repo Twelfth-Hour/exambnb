@@ -10,6 +10,7 @@ class App extends Component {
     code: '',
     users: [],
     emails: [],
+    isFile: false
   }
 
   track = () => {
@@ -84,116 +85,170 @@ class App extends Component {
           </Form.Row>
           <br/>
           <Form.Row className="align-items-center">
+
             <Col xs="auto">
+              <Form.Group controlId="formBasicCheckbox">
+                <Form.Check onChange={(e) => this.setState({ isFile: e.target.checked })} type="checkbox"
+                            label="Do you want to add students file?" defaultChecked={this.state.isFile}/>
+              </Form.Group>
+              {this.state.isFile &&
+
               <Form.Group>
                 <Form.File id="exampleFormControlFile1" onChange={(e) => this.showFile(e)}
                            label="Upload File"/>
               </Form.Group>
+              }
+
             </Col>
           </Form.Row>
         </Form>
         <br/>
         <br/>
-        <p>
-          <b>Online and in the list: {this.state.users.filter(a => this.state.emails.includes(a.email)).length}</b>
-        </p>
+        {!this.state.isFile &&
+        <div>
+          <p>
+            <b>Online: {this.state.users.filter(a => this.state.emails.includes(a.email)).length}</b>
+          </p>
 
-        <Accordion>
-          {this.state.users.filter(a => this.state.emails.includes(a.email)).map((d, k) => {
-            return (
-              <Card key={k}>
-                <Card.Header>
-                  <Accordion.Toggle
-                    as={Button}
-                    variant="link"
-                    eventKey={`${k}`}
-                  >
-                    {d.email}
-                  </Accordion.Toggle>
-                  <Badge variant={this.makeFlagColor(JSON.parse(d.activities).length)}>Flags: {JSON.parse(d.activities).length}</Badge>
-                </Card.Header>
-                <Accordion.Collapse eventKey={`${k}`}>
-                  <div>
-                    <ListGroup>
-                      {JSON.parse(d.activities).map((a, i) => {
-                        return (
-                          <ListGroup.Item key={i}>{a.message} {a.url && a.url !== '' &&
-                          <a href={a.url} target="_blank">Link</a>}</ListGroup.Item>
-                        )
-                      })}
-                    </ListGroup>
-                  </div>
-                </Accordion.Collapse>
-              </Card>
-            )
-          })}
-        </Accordion>
+          <Accordion>
+            {this.state.users.map((d, k) => {
+              return (
+                <Card key={k}>
+                  <Card.Header>
+                    <Accordion.Toggle
+                      as={Button}
+                      variant="link"
+                      eventKey={`${k}`}
+                    >
+                      {d.email}
+                    </Accordion.Toggle>
+                    <Badge
+                      variant={this.makeFlagColor(JSON.parse(d.activities).length)}>Flags: {JSON.parse(d.activities).length}</Badge>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey={`${k}`}>
+                    <div>
+                      <ListGroup>
+                        {JSON.parse(d.activities).map((a, i) => {
+                          return (
+                            <ListGroup.Item key={i}>{a.message} {a.url && a.url !== '' &&
+                            <a href={a.url} target="_blank">Link</a>}</ListGroup.Item>
+                          )
+                        })}
+                      </ListGroup>
+                    </div>
+                  </Accordion.Collapse>
+                </Card>
+              )
+            })}
+          </Accordion>
+        </div>
+        }
+        {this.state.isFile && <div>
 
-        <br/>
-        <br/>
-        <p>
-          <b>Offline and in the list: {this.state.emails.filter(a => !this.state.users.map(e => e.email)).length}</b>
-        </p>
 
-        <Accordion>
-          {this.state.emails.filter(a => !this.state.users.map(e => e.email).includes(a)).map((d, k) => {
-            return (
-              <Card key={k}>
-                <Card.Header>
-                  <Accordion.Toggle
-                    as={Button}
-                    variant="link"
-                    eventKey={`${k}`}
-                  >
-                    {d}
-                  </Accordion.Toggle>
-                  <Badge variant="danger">Absent</Badge>
+          <p>
+            <b>Online and in the list: {this.state.users.filter(a => this.state.emails.includes(a.email)).length}</b>
+          </p>
 
-                </Card.Header>
+          <Accordion>
+            {this.state.users.filter(a => this.state.emails.includes(a.email)).map((d, k) => {
+              return (
+                <Card key={k}>
+                  <Card.Header>
+                    <Accordion.Toggle
+                      as={Button}
+                      variant="link"
+                      eventKey={`${k}`}
+                    >
+                      {d.email}
+                    </Accordion.Toggle>
+                    <Badge
+                      variant={this.makeFlagColor(JSON.parse(d.activities).length)}>Flags: {JSON.parse(d.activities).length}</Badge>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey={`${k}`}>
+                    <div>
+                      <ListGroup>
+                        {JSON.parse(d.activities).map((a, i) => {
+                          return (
+                            <ListGroup.Item key={i}>{a.message} {a.url && a.url !== '' &&
+                            <a href={a.url} target="_blank">Link</a>}</ListGroup.Item>
+                          )
+                        })}
+                      </ListGroup>
+                    </div>
+                  </Accordion.Collapse>
+                </Card>
+              )
+            })}
+          </Accordion>
 
-              </Card>
-            )
-          })}
-        </Accordion>
-        <br/>
-        <br/>
+          <br/>
+          <br/>
+          <p>
+            <b>Offline and in the list: {this.state.emails.filter(a => !this.state.users.map(e => e.email)).length}</b>
+          </p>
 
-        <p>
-          <b>Not in the list: {this.state.users.filter(a => !this.state.emails.includes(a.email)).length}</b>
-        </p>
+          <Accordion>
+            {this.state.emails.filter(a => !this.state.users.map(e => e.email).includes(a)).map((d, k) => {
+              return (
+                <Card key={k}>
+                  <Card.Header>
+                    <Accordion.Toggle
+                      as={Button}
+                      variant="link"
+                      eventKey={`${k}`}
+                    >
+                      {d}
+                    </Accordion.Toggle>
+                    <Badge variant="secondary">Absent</Badge>
 
-        <Accordion>
-          {this.state.users.filter(a => !this.state.emails.includes(a.email)).map((d, k) => {
-            return (
-              <Card key={k}>
-                <Card.Header>
-                  <Accordion.Toggle
-                    as={Button}
-                    variant="link"
-                    eventKey={`${k}`}
-                  >
-                    {d.email}.
-                  </Accordion.Toggle>
-                  <Badge variant={this.makeFlagColor(JSON.parse(d.activities).length)}>Flags: {JSON.parse(d.activities).length}</Badge>
+                  </Card.Header>
 
-                </Card.Header>
-                <Accordion.Collapse eventKey={`${k}`}>
-                  <div>
-                    <ListGroup>
-                      {JSON.parse(d.activities).map((a, i) => {
-                        return (
-                          <ListGroup.Item key={i}>{a.message} {a.url && a.url !== '' &&
-                          <a href={a.url} target="_blank">Link</a>}</ListGroup.Item>
-                        )
-                      })}
-                    </ListGroup>
-                  </div>
-                </Accordion.Collapse>
-              </Card>
-            )
-          })}
-        </Accordion>
+                </Card>
+              )
+            })}
+          </Accordion>
+          <br/>
+          <br/>
 
+          <p>
+            <b>Not in the list: {this.state.users.filter(a => !this.state.emails.includes(a.email)).length}</b>
+          </p>
+
+          <Accordion>
+            {this.state.users.filter(a => !this.state.emails.includes(a.email)).map((d, k) => {
+              return (
+                <Card key={k}>
+                  <Card.Header>
+                    <Accordion.Toggle
+                      as={Button}
+                      variant="link"
+                      eventKey={`${k}`}
+                    >
+                      {d.email}.
+                    </Accordion.Toggle>
+                    <Badge
+                      variant={this.makeFlagColor(JSON.parse(d.activities).length)}>Flags: {JSON.parse(d.activities).length}</Badge>
+
+                  </Card.Header>
+                  <Accordion.Collapse eventKey={`${k}`}>
+                    <div>
+                      <ListGroup>
+                        {JSON.parse(d.activities).map((a, i) => {
+                          return (
+                            <ListGroup.Item key={i}>{a.message} {a.url && a.url !== '' &&
+                            <a href={a.url} target="_blank">Link</a>}</ListGroup.Item>
+                          )
+                        })}
+                      </ListGroup>
+                    </div>
+                  </Accordion.Collapse>
+                </Card>
+              )
+            })}
+          </Accordion>
+        </div>
+        }
 
         <br/>
         <br/>
