@@ -15,3 +15,7 @@
 .space {
   margin-top: calc(50vh - 5rem);
 }
+
+.item {
+    display: none;
+}

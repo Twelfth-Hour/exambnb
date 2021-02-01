@@ -1,1 +1,1 @@
-console.log("Hi from scripts!");
+// Don't delete this file

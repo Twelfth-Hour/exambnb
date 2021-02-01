@@ -1,10 +1,12 @@
-# T25-Twelfth-Hour: Exambnb 📝 
-> Official Repository for DotSlash 4.0 Submission of Team 25: Twelfth Hour
+# Twelfth-Hour: Exambnb 📝 
+> 2nd Runner Up Dotslash => Team 25: Twelfth Hour
 
 ## Table Of Contents 
 1. [What is Exambnb](#what-is-exambnb)
 2. [The reason on which Exambnb works](#why-exambnb)
 3. [How is Exambnb implemented](#how-is-exambnb-implemented)
+4. [Setting up in your local machine](#setting-up-in-your-local-machine)
+5. [Checkout the video demo](#checkout-the-video-demo)
 
 ## What is Exambnb?
 We are going to explain by asking a question, how do you manage to wake up early at your home to get ready for college **at your home!** 
@@ -51,6 +53,8 @@ This is the easiest part honestly.
 
 2. For the extension, inside chrome move to `chrome://extensions` and switch on the **developer mode** and click on **load unpacked**. A popup opens where you select the entire **extension** folder.
 
+After this, you can either use the step 3 or step 4 to run the react application
+
 3. For using the react web application, direct inside the **admin** folder and do the following: 
 
 ```
@@ -61,6 +65,12 @@ $ yarn start
 ```
 
 This will start your project at `localhost:3000`.
+
+4. Here, you don't have to do anything just visit the [https://exambnb.netlify.app](https://exambnb.netlify.app) and enter the exam code & press track!
+
+### Checkout the video demo
+
+If you are unable to understand on how to use the application or demo it, you can understand from the video [demo](https://youtu.be/_-FUYcP5ghw) Twelfth Hour made for you! 🎥 
 
 ## Authors 
 - *Aemie Jariwala*: [AemieJ](https://github.com/AemieJ/), an open-source dev, outreachy intern 2k20, DSC Lead 2k20-21 & an alpha MLSA.

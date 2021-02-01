@@ -1,3 +1,45 @@
+var showStatusInterval = null;
+var showInfoInterval = null;
+
+function showCache() {
+  let cachedActivities = JSON.parse(localStorage.getItem("cache"));
+  if (localStorage.getItem("cache") != null) {
+    console.log('trying to show cache');
+    console.log(cachedActivities);
+    cachedActivities.forEach((e, idx) => {
+      let selector = `div.item.item-${idx + 1}`;
+      console.log(document.querySelector(selector));
+      document.querySelector(selector).style.display = "block";
+      let textSelector = `div.description.item-${idx + 1}`;
+      document.querySelector(textSelector).innerHTML = e.message;
+    });
+  }
+}
+
+function showStatus() {
+  let activities = Number(localStorage.getItem("flag"));
+  console.log('trying to show status');
+  console.log(localStorage.getItem("flag"));
+  if (activities != null) {
+    if (activities > 15) {
+      document.querySelector("#status").innerHTML = "Status: Suspicious Activity";
+      document.querySelector("#status").style.color = "red";
+    } else {
+      document.querySelector("#status").innerHTML = "Status: No Suspicious Activity";
+      document.querySelector("#status").style.color = "green";
+    }
+  }
+
+}
+
+function startCache() {
+  showInfoInterval = setInterval(showCache, 1000);
+}
+
+function startStatus() {
+  showStatusInterval = setInterval(showStatus, 1000);
+}
+
 function showNewUserStuff() {
   document
     .querySelectorAll(".new-user-stuff")
@@ -51,25 +93,15 @@ function showCodeSet() {
 }
 
 function showTracking() {
-  // temp method to show suspicious activity or not
-  // let flags = 5;
-  // if (localStorage.getItem("cached-activities") !== null) {
-  //   flags = JSON.parse(localStorage.getItem("cached-activities")).length;
-  // }
+
   document
     .querySelectorAll(".tracking-enabled")
     .forEach((e) => (e.style.display = "block"));
 
   document.querySelector("#tracking").checked = true;
   document.querySelector("#tracking-message").innerHTML = "Tracking Enabled";
-
-  // if (flags > 3) {
-  //   document.querySelector("#status").innerHTML = "Status: Suspicious Activity";
-  //   document.querySelector("#status").style.color = "red";
-  // } else {
-  //   document.querySelector("#status").innerHTML = "Status: No Suspicious Activity";
-  //   document.querySelector("#status").style.color = "green";
-  // }
+  startStatus();
+  startCache();
 }
 
 function stopTracking() {
@@ -79,6 +111,22 @@ function stopTracking() {
 
   document.querySelector("#tracking").checked = false;
   document.querySelector("#tracking-message").innerHTML = "Tracking Disabled";
+  localStorage.removeItem("activities");
+  localStorage.removeItem("cache");
+  localStorage.removeItem("flag");
+
+  document.querySelector("#status").innerHTML = "Status: No Suspicious Activity";
+  document.querySelector("#status").style.color = "green";
+
+  for (var idx = 0; idx < 5; ++idx) {
+    let selector = `div.item.item-${idx + 1}`;
+    document.querySelector(selector).style.display = "none";
+    let textSelector = `div.description.item-${idx + 1}`;
+    document.querySelector(textSelector).innerHTML = "";
+  }
+
+  clearInterval(showStatusInterval);
+  clearInterval(showInfoInterval);
   // document.querySelector("#status").innerHTML = "";
 }
 
@@ -89,7 +137,11 @@ function setCode(code) {
 
 function setUser(user) {
   localStorage.setItem("user", JSON.stringify(user));
-  localStorage.setItem("activities", JSON.stringify([]));
+  localStorage.getItem("activities") == null ?
+    localStorage.setItem("activities", JSON.stringify([])) :
+    localStorage.setItem("activities", JSON.stringify(JSON.parse(localStorage.getItem("activities"))));
+  localStorage.setItem("cache", JSON.stringify([]));
+  localStorage.setItem("flag", 0);
   displayUserStuff();
 }
 
@@ -102,8 +154,6 @@ function removeUser() {
   localStorage.removeItem("user");
   localStorage.removeItem("code");
   localStorage.removeItem("tracking");
-  // TODO: Remove this:
-  localStorage.removeItem("activities");
   document.querySelector("input#code").value = "";
   displayUserStuff();
 }
@@ -146,7 +196,7 @@ window.onload = () => {
 
       fetch(
         "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" +
-          token,
+        token,
         requestOptions
       )
         .then((response) => response.json())
@@ -180,5 +230,6 @@ window.onload = () => {
   document.querySelector("input#tracking").addEventListener("change", () => {
     toggleTracking();
   });
+
   displayUserStuff();
 };

@@ -46,7 +46,7 @@ chrome.runtime.onInstalled.addListener(function () {
           })
       );
     }
-  }, 1000 * 10);
+  }, 5000);
 
   setInterval(() => {
     if (
@@ -68,6 +68,16 @@ chrome.runtime.onInstalled.addListener(function () {
             const data = doc.data();
             console.log("Document data:", data);
             let activities = JSON.parse(data.activities);
+            localStorage.setItem("flag", activities.length);
+            
+            // if (activities.length > 15) {
+            //   document.querySelector("#status").innerHTML = "Status: Suspicious Activity";
+            //   document.querySelector("#status").style.color = "red";
+            // } else {
+            //   document.querySelector("#status").innerHTML = "Status: No Suspicious Activity";
+            //   document.querySelector("#status").style.color = "green";
+            // }
+
             Array.prototype.push.apply(activities, JSON.parse(localStorage.getItem("activities")));
             userRef
               .update({
@@ -75,6 +85,20 @@ chrome.runtime.onInstalled.addListener(function () {
               })
               .then(function () {
                 console.log("Activities successfully updated!");
+                let cachedActivities = JSON.parse(localStorage.getItem('cache'));
+                // TODO: new activities must be reversed
+                let newActivities = JSON.parse(localStorage.getItem("activities"));
+
+                Array.prototype.push.apply(newActivities, cachedActivities);
+                newActivities = newActivities.splice(0, 5);
+                newActivities.forEach((e, idx) => {
+                  console.log(e);
+                  // document.querySelector(`.item-${idx}`).style.display = "block";
+                  // document.querySelector(`.description.item-${idx}`).innerHTML = e.message;
+                });
+
+                localStorage.setItem("cache", JSON.stringify(newActivities));
+
                 localStorage.setItem("activities", JSON.stringify([]));
               })
               // eslint-disable-next-line no-unused-vars
@@ -90,5 +114,5 @@ chrome.runtime.onInstalled.addListener(function () {
           console.log("Error getting document:", error);
         });
     }
-  }, 1000 * 10);
+  }, 5000);
 });

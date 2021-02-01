@@ -1,2 +1,5 @@
 extension.zip
 
+
+# Local Netlify folder
+.netlify
